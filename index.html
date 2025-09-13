@@ -4,32 +4,108 @@
     <title>Animal Knowledge Hub</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { background-color: #f8f9fa; font-family: Arial, sans-serif; }
+        body { background-color: #f8f9fa; font-family: Arial, sans-serif; position: relative; }
         h1 { text-align: center; color: #3a5a40; margin-top: 40px; }
         h2 { text-align: center; color: #40916c; }
-        .container { max-width: 700px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.08);}
-        ul { list-style: none; padding: 0; }
-        li { margin: 18px 0; text-align: center; }
+        .container { max-width: 700px; margin: 40px auto; padding: 30px; background: #fff; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.08); }
+        ul { list-style: none; padding: 0 0 0 20px; text-align: left; }
+        li { margin: 18px 0; text-align: left; }
         a { font-size: 22px; color: #18837f; text-decoration: none; transition: color 0.2s; }
         a:hover { color: #3a5a40; }
         .footer { text-align: center; color: #3a5a40; margin-top: 40px; font-size: 18px; }
+
+        .top-row { display: flex; justify-content: center; align-items: flex-start; gap: 30px; margin-top: 30px; }
+        .col { flex: 1; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.04); }
+        .col h2 { margin-top: 0; }
+
+        /* top-right creator + search */
+        .top-right {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            background: rgba(255,255,255,0.9);
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            font-size: 14px;
+        }
+        .creator { color:#3a5a40; font-weight:600; white-space:nowrap; }
+        .search-input {
+            padding: 6px 8px;
+            border: 1px solid #d0d7db;
+            border-radius: 6px;
+            width: 200px;
+            font-size: 14px;
+        }
+
+        @media (max-width:560px){
+            .top-right { position: static; margin: 12px auto; }
+            .top-row { flex-direction: column; gap: 18px; }
+        }
     </style>
 </head>
 <body>
+    <div class="top-right" role="search" aria-label="Search animals">
+        <span class="creator">Creator: <a href="mailto:aradhayakaudinya@gmail.com">Aradhay Kaudinya</a></span>
+        <input id="searchBox" class="search-input" type="search" placeholder="Search animals..." aria-label="Search animals">
+    </div>
+
     <h1>Welcome to Animal Knowledge Hub</h1>
     <h2>Learn About Your Favorite Animals</h2>
-    <div class="container">
-        <ul>
-            <li><a href="Dog.html">Dogs</a></li>
-            <li><a href="cat.html">Cats</a></li>
-            <li><a href="Cow.html">Cows</a></li>
-            <li><a href="Buffalo.html">Buffaloes</a></li>
-            <li><a href="Mouse.html">Mice</a></li>
-        </ul>
+
+    <div class="top-row">
+        <div class="col" style="text-align: left;">
+            <h2 style="color:#07ca79; text-align: center;">Domestic Animals</h2>
+            <ul>
+                <li><a href="Dog.html">Dogs</a></li>
+                <li><a href="cat.html">Cats</a></li>
+                <li><a href="Cow.html">Cows</a></li>
+                <li><a href="Buffalo.html">Buffaloes</a></li>
+                <li><a href="Mouse.html">Mice</a></li>
+            </ul>
+        </div>
+
+        <div style="width:2px; height:180px; background:#40916c; align-self: center;"></div>
+
+        <div class="col" style="text-align: center;">
+            <h2 style="color:#b02a2a;">Wild Animals</h2>
+            <ul>
+                <li><a href="Lion.html">Lions</a></li>
+                <li><a href="Tiger.html">Tigers </a></li>
+                <li><a href="Wolf.html">Wolves</a></li>
+                <li><a href="Elephant.html">Elephants</a></li>
+                <li><a href="Hyena.html">Hyenas</a></li>
+            </ul>
+        </div>
     </div>
+
     <div class="footer">
         <p>Created by Aradhay Kaudinya for educational purposes.<br>
-        &copy; 2025 Animal Knowledge Hub</p>
+        &copy; 2025 Animal Knowledge Hub. All rights reserved.<br>
+        <a href="mailto:aradhayakaudinya@gmail.com">Contact Me</a></p>
     </div>
+
+    <script>
+        // filter links in both lists as user types
+        (function(){
+            const input = document.getElementById('searchBox');
+            const items = Array.from(document.querySelectorAll('ul li'));
+            input.addEventListener('input', function(){
+                const q = input.value.trim().toLowerCase();
+                if (!q) {
+                    items.forEach(li => li.style.display = '');
+                    return;
+                }
+                items.forEach(li => {
+                    const txt = li.textContent.trim().toLowerCase();
+                    li.style.display = txt.includes(q) ? '' : 'none';
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
+
